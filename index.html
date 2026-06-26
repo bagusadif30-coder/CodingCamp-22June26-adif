@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense & Budget Visualizer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Header & Dark Mode -->
+        <header>
+            <h1>Expense & Budget Visualizer</h1>
+            <button id="theme-toggle" class="btn-toggle">🌙 Mode Gelap</button>
+        </header>
+
+        <!-- Total Balance (Atas) -->
+        <div class="balance-card">
+            <h2>TOTAL BALANCE</h2>
+            <div id="total-balance" class="balance-amount">$0.00</div>
+            <div id="limit-warning" class="warning-text hidden">⚠️ Pengeluaran melebihi batas anggaran!</div>
+        </div>
+
+        <!-- Form Input (Tengah) -->
+        <section class="card form-card">
+            <h3>Add Transaction</h3>
+            <form id="transaction-form">
+                <div class="form-group">
+                    <label for="item-name">Item Name</label>
+                    <input type="text" id="item-name" placeholder="Contoh: Buah Apel, Cilok" required>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Amount</label>
+                    <input type="number" id="amount" step="0.01" placeholder="0.00" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" required>
+                        <option value="" disabled selected>Pilih Kategori</option>
+                        <option value="Food">Food</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Fun">Fun</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-submit">Add Transaction</button>
+            </form>
+        </section>
+
+        <!-- Filter & Sorting Controls -->
+        <section class="card filter-card">
+            <div class="filter-grid">
+                <div class="form-group">
+                    <label for="sort-options">Urutkan Berdasarkan</label>
+                    <select id="sort-options">
+                        <option value="default">Terbaru</option>
+                        <option value="amount-high">Jumlah: Tinggi ke Rendah</option>
+                        <option value="amount-low">Jumlah: Rendah ke Tinggi</option>
+                        <option value="category">Kategori (A-Z)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="budget-limit">Batas Anggaran ($)</label>
+                    <input type="number" id="budget-limit" placeholder="Set limit pengeluaran">
+                </div>
+            </div>
+        </section>
+
+        <!-- Bottom Layout: Grid antara List dan Chart -->
+        <div class="bottom-grid">
+            <!-- Kiri: Transactions List -->
+            <section class="card history-card">
+                <h3>Transactions</h3>
+                <ul id="transaction-list" class="scrollable-list">
+                    <!-- Data dimuat lewat JavaScript -->
+                </ul>
+            </section>
+
+            <!-- Kanan: Spending by Category -->
+            <section class="card chart-card">
+                <h3>Spending by Category</h3>
+                <div class="chart-container">
+                    <canvas id="expense-chart"></canvas>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
